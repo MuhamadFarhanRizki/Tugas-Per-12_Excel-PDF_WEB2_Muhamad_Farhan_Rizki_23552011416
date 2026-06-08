@@ -37,10 +37,21 @@
         .table tbody tr:hover {
             background: #b7efc5;
         }
-        .btn-warning { background-color: #ffb703; border: none; }
-        .btn-danger { background-color: #e63946; border: none; }
-        .btn-secondary { background-color: #6c757d; }
-        .btn-success { background-color: #40916c; border: none; }
+        .btn-warning {
+            background-color: #ffb703;
+            border: none;
+        }
+        .btn-danger {
+            background-color: #e63946;
+            border: none;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-success {
+            background-color: #40916c;
+            border: none;
+        }
         .aksi-btn {
             display: flex;
             gap: 5px;
@@ -52,6 +63,7 @@
 <body>
 
 <div class="container mt-5">
+
     <h2 class="text-center mb-4">Data Mata Kuliah</h2>
 
     <div class="mb-3 text-center">
@@ -61,14 +73,21 @@
 
     <!-- SEARCH -->
     <form method="GET" action="/matakuliah" class="mb-3 text-center">
-        <input type="text" name="keyword" value="{{ $keyword ?? '' }}" placeholder="Cari mata kuliah..." class="form-control w-50 d-inline">
-        <button class="btn btn-primary">Cari</button>
+        <input type="text"
+               name="keyword"
+               value="{{ $keyword ?? '' }}"
+               placeholder="Cari mata kuliah..."
+               class="form-control w-50 d-inline">
+
+        <button class="btn btn-primary">
+            Cari
+        </button>
     </form>
 
     <table class="table table-bordered text-center">
         <thead>
             <tr>
-                <th>No</th> 
+                <th>No</th>
                 <th>Nama Mata Kuliah</th>
                 <th>SKS</th>
                 <th>Jurusan</th>
@@ -81,25 +100,54 @@
             <tr>
                 <td>
                     {{ ($matakuliah->currentPage() - 1) * $matakuliah->perPage() + $index + 1 }}
-                </td> 
+                </td>
+
                 <td>{{ $mk->nama_matakuliah }}</td>
+
                 <td>{{ $mk->sks }}</td>
-                <td>{{ $mk->jurusan->nama_jurusan }}</td>
+
+                <td>{{ $mk->jurusan->nama_jurusan ?? '-' }}</td>
+
                 <td>
                     <div class="aksi-btn">
-                        <a href="{{ route('matakuliah.edit',$mk->id_matakuliah) }}" class="btn btn-warning btn-sm">Edit</a>
 
-                        <form action="{{ route('matakuliah.destroy',$mk->id_matakuliah) }}" method="POST">
+                        <a href="{{ route('matakuliah.edit',$mk->id_matakuliah) }}"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
+
+                        <form action="{{ route('matakuliah.destroy',$mk->id_matakuliah) }}"
+                              method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)">Hapus</button>
+
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="confirmDelete(this)">
+                                Hapus
+                            </button>
                         </form>
+
                     </div>
                 </td>
             </tr>
         @endforeach
         </tbody>
     </table>
+
+    <!-- EXPORT PDF -->
+    <div class="text-center mb-2">
+        <a href="{{ route('matakuliah.print') }}" target="_blank" class="btn btn-danger">
+            Export PDF
+        </a>
+    </div>
+
+    <!-- EXPORT EXCEL -->
+    <div class="text-center mb-3">
+        <a href="{{ route('matakuliah.excel') }}" target="_blank" class="btn btn-success">
+            Export Excel
+        </a>
+    </div>
 
     <!-- PAGINATION -->
     <div class="d-flex justify-content-center">

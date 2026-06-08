@@ -37,10 +37,21 @@
         .table tbody tr:hover {
             background: #b7efc5;
         }
-        .btn-warning { background-color: #ffb703; border: none; }
-        .btn-danger { background-color: #e63946; border: none; }
-        .btn-secondary { background-color: #6c757d; }
-        .btn-success { background-color: #40916c; border: none; }
+        .btn-warning {
+            background-color: #ffb703;
+            border: none;
+        }
+        .btn-danger {
+            background-color: #e63946;
+            border: none;
+        }
+        .btn-secondary {
+            background-color: #6c757d;
+        }
+        .btn-success {
+            background-color: #40916c;
+            border: none;
+        }
         .aksi-btn {
             display: flex;
             gap: 5px;
@@ -61,14 +72,18 @@
 
     <!-- SEARCH -->
     <form method="GET" action="/mahasiswa" class="mb-3 text-center">
-        <input type="text" name="keyword" value="{{ $keyword ?? '' }}" placeholder="Cari mahasiswa..." class="form-control w-50 d-inline">
+        <input type="text"
+               name="keyword"
+               value="{{ $keyword ?? '' }}"
+               placeholder="Cari mahasiswa..."
+               class="form-control w-50 d-inline">
         <button class="btn btn-primary">Cari</button>
     </form>
 
     <table class="table table-bordered text-center">
         <thead>
             <tr>
-                <th>No</th> 
+                <th>No</th>
                 <th>NIM</th>
                 <th>Nama</th>
                 <th>Email</th>
@@ -82,19 +97,27 @@
             <tr>
                 <td>
                     {{ ($mahasiswa->currentPage() - 1) * $mahasiswa->perPage() + $index + 1 }}
-                </td> 
+                </td>
                 <td>{{ $mhs->nim }}</td>
                 <td>{{ $mhs->nama }}</td>
                 <td>{{ $mhs->email }}</td>
                 <td>{{ $mhs->detail_jurusan->nama_jurusan }}</td>
                 <td>
                     <div class="aksi-btn">
-                        <a href="{{ route('mahasiswa.edit',$mhs->id_mahasiswa) }}" class="btn btn-warning btn-sm">Edit</a>
+                        <a href="{{ route('mahasiswa.edit',$mhs->id_mahasiswa) }}"
+                           class="btn btn-warning btn-sm">
+                            Edit
+                        </a>
 
-                        <form action="{{ route('mahasiswa.destroy',$mhs->id_mahasiswa) }}" method="POST">
+                        <form action="{{ route('mahasiswa.destroy',$mhs->id_mahasiswa) }}"
+                              method="POST">
                             @csrf
                             @method('DELETE')
-                            <button type="button" class="btn btn-danger btn-sm" onclick="confirmDelete(this)">Hapus</button>
+                            <button type="button"
+                                    class="btn btn-danger btn-sm"
+                                    onclick="confirmDelete(this)">
+                                Hapus
+                            </button>
                         </form>
                     </div>
                 </td>
@@ -102,6 +125,20 @@
         @endforeach
         </tbody>
     </table>
+
+    <!-- EXPORT PDF -->
+    <div class="text-center mb-2">
+        <a href="{{ route('mahasiswa.print') }}" target="_blank" class="btn btn-danger">
+            Export PDF
+        </a>
+    </div>
+
+    <!-- EXPORT EXCEL -->
+    <div class="text-center mb-3">
+        <a href="{{ url('/mahasiswa/export-csv') }}" target="_blank" class="btn btn-success">
+            Export Excel
+        </a>
+    </div>
 
     <!-- PAGINATION -->
     <div class="d-flex justify-content-center">
