@@ -60,5 +60,8 @@ The Laravel framework is open-sourced software licensed under the [MIT license](
 
 Bukti Excel dan PDF Sudah Jalan Di Menu Jurusan dan Mata Kuliah 
 
+<img width="955" height="504" alt="Screenshot 2026-06-08 163950" src="https://github.com/user-attachments/assets/e2bb18a8-365d-491a-97f2-9b53a21601b8" />
+
+
 <img width="959" height="491" alt="Screenshot 2026-06-08 164110" src="https://github.com/user-attachments/assets/d6622ca3-b467-414e-9882-b96de1894fbb" />
 
